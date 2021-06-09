@@ -14,20 +14,6 @@ echo "Starting ngrok..."
 eval "$ngrok_cmd | tee ngrok.log &"
 ngrok_pid=$!
 
-# Do an inline sync first, then start the background job
-echo "Starting sync..."
-bin/sync
-if [ "$READ_ONLY" != "true" ]; then
-  eval "while true; do sleep ${AWS_SYNC_INTERVAL:-60}; bin/sync; done &"
-  sync_pid=$!
-fi
-
-# create server config
-echo "server-port=${mc_port}" >> /app/server.properties
-for f in whitelist banned-players banned-ips ops; do
-  test ! -f $f.json && echo -n "[]" > $f.json
-done
-
 limit=$(ulimit -u)
 case $limit in
   512)   # 2X Dyno
@@ -42,7 +28,7 @@ case $limit in
 esac
 
 echo "Starting: minecraft ${mc_port}"
-eval "screen -L -h 2048 -dmS minecraft java -Xmx${heap} -Xms${heap} -jar minecraft.jar nogui"
+eval "screen -L -h 2048 -dmS minecraft java -Xmx${heap} -Xms${heap} -jar server.jar nogui"
 main_pid=$!
 
 # Flush the logfile every second, and ensure that the logfile exists
