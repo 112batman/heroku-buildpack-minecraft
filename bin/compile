@@ -60,10 +60,10 @@ curl --silent -o ngrok.zip -L "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable
 unzip ngrok.zip -d $BUILD_DIR/bin > /dev/null 2>&1
 echo "done"
 
-YATOPIA_URL="https://api.yatopiamc.org/v2/latestBuild/download?branch=ver/1.16.5"
+SERVER_URL="https://ci.codemc.io/job/Spottedleaf/job/Tuinity/lastSuccessfulBuild/artifact/tuinity-paperclip.jar"
 
-echo -n "-----> Installing Yatopia... "
-curl -o server.jar -s -L $YATOPIA_URL
+echo -n "-----> Installing Tuinity... "
+curl -o server.jar -s -L $SERVER_URL
 mv server.jar $BUILD_DIR/server.jar
 echo "done"
 
