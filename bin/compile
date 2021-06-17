@@ -68,7 +68,7 @@ mv server.jar $BUILD_DIR/server.jar
 echo "done"
 
 echo -n "-----> Accepting Minecraft EULA... "
-echo "eula=true" >> $BUILD_DIR/eula.txt
+echo "eula=true" >> "${BUILD_DIR}/eula.txt"
 echo "done"
 
 mkdir -p $BUILD_DIR/bin
